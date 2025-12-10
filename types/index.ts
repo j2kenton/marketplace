@@ -1,0 +1,29 @@
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: Category;
+  image: string;
+  rating: number; // 1-5
+  reviewCount: number;
+  stock: number;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+}
+
+export interface CartItem {
+  productId: string;
+  quantity: number;
+}
+
+export type SortOption = "price_asc" | "price_desc" | "name_asc";
+
+export interface ProductFilters {
+  search: string;
+  categoryId: string | null;
+  sortBy: SortOption;
+}

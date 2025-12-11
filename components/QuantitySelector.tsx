@@ -1,9 +1,9 @@
+import { MINUS, PLUS } from "@/constants/Chars";
 import { Pressable, Text, View } from "react-native";
 
 const DEFAULT_MIN = 1;
 const DEFAULT_MAX = 99;
-const MINUS = "-";
-const PLUS = "+";
+const DEFAULT_STEP = 1;
 
 interface QuantitySelectorProps {
   value: number;
@@ -20,13 +20,13 @@ const QuantitySelector = ({
 }: QuantitySelectorProps) => {
   const handleDecrease = () => {
     if (value > min) {
-      onChange(value - 1);
+      onChange(value - DEFAULT_STEP);
     }
   };
 
   const handleIncrease = () => {
     if (value < max) {
-      onChange(value + 1);
+      onChange(value + DEFAULT_STEP);
     }
   };
 

@@ -1,3 +1,4 @@
+import { CURRENCY_SYMBOL } from "@/constants/Chars";
 import { Product } from "@/types";
 import { memo } from "react";
 import {
@@ -10,7 +11,6 @@ import {
 import StarRating from "./StarRating";
 
 const LINES_OF_TEXT = 2;
-const CURRENCY_SYMBOL = "$"; // TODO: i11n
 
 interface ProductCardProps {
   product: Product;

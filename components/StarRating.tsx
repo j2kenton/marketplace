@@ -1,7 +1,6 @@
+import { STAR_SYMBOL } from "@/constants/Chars";
 import { memo } from "react";
 import { Text } from "react-native";
-
-const STAR_SYMBOL = "⭐";
 
 interface StarRatingProps {
   rating: number;

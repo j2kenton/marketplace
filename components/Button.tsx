@@ -1,29 +1,54 @@
-import { ActivityIndicator, Pressable, Text, View } from "react-native";
+import { memo } from "react";
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
+
+export enum ButtonVariant {
+  PRIMARY = "primary",
+  SECONDARY = "secondary",
+  DANGER = "danger",
+}
+
+const ACTIVITY_INDICATOR_COLOR = "white";
 
 interface ButtonProps {
-  onPress: () => void;
+  onPress: (event?: GestureResponderEvent) => void;
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "danger";
+  variant: ButtonVariant;
   loading?: boolean;
   disabled?: boolean;
 }
 
-export function Button({
-  onPress,
-  children,
-  variant = "primary",
-  loading,
-  disabled,
-}: ButtonProps) {
+const Button = (props: ButtonProps) => {
+  const {
+    onPress,
+    children,
+    variant = ButtonVariant.PRIMARY, // TODO: use for styling or remove if not needed
+    loading,
+    disabled,
+  } = props;
+  const isPressable = !disabled && !loading;
+  const handlePress = (event?: GestureResponderEvent) => {
+    if (isPressable) {
+      onPress(event);
+    }
+  };
+
   return (
-    <Pressable onPress={onPress} disabled={disabled || loading}>
+    <Pressable onPress={handlePress} disabled={!isPressable}>
       <View>
         {loading ? (
-          <ActivityIndicator color="white" />
+          <ActivityIndicator color={ACTIVITY_INDICATOR_COLOR} />
         ) : (
           <Text>{children}</Text>
         )}
       </View>
     </Pressable>
   );
-}
+};
+
+export default memo(Button);

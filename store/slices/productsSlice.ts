@@ -1,7 +1,7 @@
 import { Product, ProductFilters, SortOption } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ProductsState {
+export interface ProductsState {
   items: Product[];
   // TODO: CONVERT TO LOADING STATUS ENUM
   // e.g. error, idle, loading, succeeded

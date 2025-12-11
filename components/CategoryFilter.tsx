@@ -7,19 +7,16 @@ interface CategoryFilterProps {
   onSelect: (id: string | null) => void;
 }
 
-const CategoryFilter = ({
-  categories,
-  selectedId,
-  onSelect,
-}: CategoryFilterProps) => {
+const CategoryFilter = (props: CategoryFilterProps) => {
+  const { categories, selectedId, onSelect } = props;
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <Pressable onPress={() => onSelect(null)}>
         <Text>{selectedId === null ? "[All]" : "All"}</Text>
       </Pressable>
-      {categories.map((cat) => (
-        <Pressable key={cat.id} onPress={() => onSelect(cat.id)}>
-          <Text>{selectedId === cat.id ? `[${cat.name}]` : cat.name}</Text>
+      {categories.map(({ id, name }) => (
+        <Pressable key={id} onPress={() => onSelect(id)}>
+          <Text>{selectedId === id ? `[${name}]` : name}</Text>
         </Pressable>
       ))}
     </ScrollView>

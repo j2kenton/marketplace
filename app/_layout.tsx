@@ -1,17 +1,11 @@
 import { store } from "@/store";
-import { theme } from "@/theme";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DefaultTheme,
-  ThemeProvider as NavThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { Provider } from "react-redux";
-import { ThemeProvider } from "styled-components/native";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -41,23 +35,19 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <NavThemeProvider value={DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            {/* TODO: use product name for title */}
-            <Stack.Screen
-              name="product/[id]"
-              options={{ title: "Product Details" }}
-            />
-            {/* TODO: consider localization l18n */}
-            <Stack.Screen
-              name="order-success"
-              options={{ title: "Order Confirmed", headerBackVisible: false }}
-            />
-          </Stack>
-        </NavThemeProvider>
-      </ThemeProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        {/* TODO: use product name for title */}
+        <Stack.Screen
+          name="product/[id]"
+          options={{ title: "Product Details" }}
+        />
+        {/* TODO: consider localization l18n */}
+        <Stack.Screen
+          name="order-success"
+          options={{ title: "Order Confirmed", headerBackVisible: false }}
+        />
+      </Stack>
     </Provider>
   );
 }

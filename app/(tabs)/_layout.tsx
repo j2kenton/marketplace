@@ -24,7 +24,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <FontAwesome name="shopping-cart" size={24} color={color} />
           ),
-          tabBarBadge: cartCount > 0 ? cartCount : null,
+          tabBarBadge: cartCount > 0 ? cartCount : undefined,
         }}
       />
     </Tabs>

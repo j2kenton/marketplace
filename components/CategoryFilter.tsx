@@ -1,5 +1,10 @@
+import STRINGS from "@/constants/Strings";
 import { Category } from "@/types";
-import { Pressable, ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
+import CategoryChip from "./CategoryChip";
+
+// TODO: handle edge case where a real category id is "view_all_categories"
+const VIEW_ALL_CATEGORIES = "view_all_categories";
 
 interface CategoryFilterProps {
   categories: Category[];
@@ -9,15 +14,23 @@ interface CategoryFilterProps {
 
 const CategoryFilter = (props: CategoryFilterProps) => {
   const { categories, selectedId, onSelect } = props;
+
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <Pressable onPress={() => onSelect(null)}>
-        <Text>{selectedId === null ? "[All]" : "All"}</Text>
-      </Pressable>
+      <CategoryChip
+        id={VIEW_ALL_CATEGORIES}
+        name={STRINGS.all}
+        isSelected={selectedId === VIEW_ALL_CATEGORIES}
+        onSelect={onSelect}
+      />
       {categories.map(({ id, name }) => (
-        <Pressable key={id} onPress={() => onSelect(id)}>
-          <Text>{selectedId === id ? `[${name}]` : name}</Text>
-        </Pressable>
+        <CategoryChip
+          key={id}
+          id={id}
+          name={name}
+          isSelected={id === selectedId}
+          onSelect={onSelect}
+        />
       ))}
     </ScrollView>
   );

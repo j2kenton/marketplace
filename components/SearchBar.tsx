@@ -1,3 +1,5 @@
+import COLORS from "@/constants/Colors";
+import STRINGS from "@/constants/Strings";
 import { TextInput } from "react-native";
 
 interface SearchBarProps {
@@ -9,14 +11,14 @@ interface SearchBarProps {
 const SearchBar = ({
   value,
   onChangeText,
-  placeholder = "Search products...",
+  placeholder = STRINGS.searchPlaceholder,
 }: SearchBarProps) => {
   return (
     <TextInput
       value={value}
       onChangeText={onChangeText}
       placeholder={placeholder}
-      placeholderTextColor="#999"
+      placeholderTextColor={COLORS.placeholderTextColor}
     />
   );
 };

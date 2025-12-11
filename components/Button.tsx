@@ -18,7 +18,7 @@ const ACTIVITY_INDICATOR_COLOR = "white";
 interface ButtonProps {
   onPress: (event?: GestureResponderEvent) => void;
   children: React.ReactNode;
-  variant: ButtonVariant;
+  variant?: ButtonVariant;
   loading?: boolean;
   disabled?: boolean;
 }

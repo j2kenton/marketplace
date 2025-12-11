@@ -1,31 +1,102 @@
-import { StyleSheet } from 'react-native';
+import ErrorState from "@/components/ErrorState";
+import ListEmpty from "@/components/ListEmpty";
+import ListFooter from "@/components/ListFooter";
+import ProductCard from "@/components/ProductCard";
+import ProductListHeader from "@/components/ProductListHeader";
+import { categories } from "@/services/mockData";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  selectFilters,
+  selectHasMore,
+  selectProducts,
+  selectProductsError,
+  selectProductsLoading,
+} from "@/store/selectors";
+import {
+  fetchProductsRequest,
+  loadMore,
+  setCategoryFilter,
+  setSearch,
+} from "@/store/slices/productsSlice";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import { FlatList } from "react-native";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+const NUM_COLUMNS = 2;
 
-export default function TabOneScreen() {
+export default function ProductListScreen() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const products = useAppSelector(selectProducts);
+  const loading = useAppSelector(selectProductsLoading);
+  const error = useAppSelector(selectProductsError);
+  const hasMore = useAppSelector(selectHasMore);
+  const filters = useAppSelector(selectFilters);
+
+  const { search, categoryId } = filters;
+
+  useEffect(() => {
+    dispatch(fetchProductsRequest());
+  }, [dispatch]);
+
+  const handleSearch = (text: string) => {
+    dispatch(setSearch(text));
+  };
+
+  const handleCategorySelect = (categoryId: string | null) => {
+    dispatch(setCategoryFilter(categoryId));
+  };
+
+  const handleLoadMore = () => {
+    if (!loading && hasMore) {
+      dispatch(loadMore());
+    }
+  };
+
+  const handleProductPress = (productId: string) => {
+    // TODO: extract string
+    router.push({ pathname: "/product/[id]", params: { id: productId } });
+  };
+
+  if (error) {
+    return (
+      <ErrorState
+        error={error}
+        onRetry={() => dispatch(fetchProductsRequest())}
+      />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <FlatList
+      data={products}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <ProductCard
+          product={item}
+          onPress={() => handleProductPress(item.id)}
+        />
+      )}
+      ListHeaderComponent={
+        <ProductListHeader
+          searchValue={search}
+          onSearchChange={handleSearch}
+          categories={categories}
+          selectedCategoryId={categoryId}
+          onCategorySelect={handleCategorySelect}
+        />
+      }
+      ListEmptyComponent={<ListEmpty loading={loading} />}
+      ListFooterComponent={
+        <ListFooter
+          loading={loading}
+          hasMore={hasMore}
+          isEmpty={products.length === 0}
+          onLoadMore={handleLoadMore}
+        />
+      }
+      numColumns={NUM_COLUMNS}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

@@ -1,22 +1,36 @@
 import { Product } from "@/types";
 import { memo } from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import {
+  GestureResponderEvent,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
+import StarRating from "./StarRating";
+
+const LINES_OF_TEXT = 2;
+const CURRENCY_SYMBOL = "$"; // TODO: i11n
 
 interface ProductCardProps {
   product: Product;
-  onPress: () => void;
+  onPress: (event?: GestureResponderEvent) => void;
 }
 
-const ProductCard = ({ product, onPress }: ProductCardProps) => {
+const ProductCard = (props: ProductCardProps) => {
+  const { product, onPress } = props;
+  const { image, name, price, rating, reviewCount } = product;
+
   return (
     <Pressable onPress={onPress}>
       <View>
-        <Image source={{ uri: product.image }} />
-        <Text numberOfLines={2}>{product.name}</Text>
-        <Text>${product.price}</Text>
+        <Image source={{ uri: image }} />
+        <Text numberOfLines={LINES_OF_TEXT}>{name}</Text>
         <Text>
-          ⭐ {product.rating} ({product.reviewCount})
+          {CURRENCY_SYMBOL}
+          {price}
         </Text>
+        <StarRating rating={rating} reviewCount={reviewCount} />
       </View>
     </Pressable>
   );

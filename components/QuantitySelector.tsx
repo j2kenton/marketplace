@@ -7,12 +7,12 @@ interface QuantitySelectorProps {
   max?: number;
 }
 
-export function QuantitySelector({
+const QuantitySelector = ({
   value,
   onChange,
   min = 1,
   max = 99,
-}: QuantitySelectorProps) {
+}: QuantitySelectorProps) => {
   return (
     <View>
       <Pressable onPress={() => onChange(Math.max(min, value - 1))}>
@@ -24,4 +24,6 @@ export function QuantitySelector({
       </Pressable>
     </View>
   );
-}
+};
+
+export default QuantitySelector;

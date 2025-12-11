@@ -7,11 +7,11 @@ interface CategoryFilterProps {
   onSelect: (id: string | null) => void;
 }
 
-export function CategoryFilter({
+const CategoryFilter = ({
   categories,
   selectedId,
   onSelect,
-}: CategoryFilterProps) {
+}: CategoryFilterProps) => {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <Pressable onPress={() => onSelect(null)}>
@@ -24,4 +24,6 @@ export function CategoryFilter({
       ))}
     </ScrollView>
   );
-}
+};
+
+export default CategoryFilter;

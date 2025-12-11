@@ -1,6 +1,6 @@
 import { Product } from "@/types";
 import { Image, Pressable, Text, View } from "react-native";
-import { QuantitySelector } from "./QuantitySelector";
+import QuantitySelector from "./QuantitySelector";
 
 interface CartItemProps {
   product: Product;
@@ -9,12 +9,12 @@ interface CartItemProps {
   onRemove: () => void;
 }
 
-export function CartItem({
+const CartItem = ({
   product,
   quantity,
   onUpdateQuantity,
   onRemove,
-}: CartItemProps) {
+}: CartItemProps) => {
   return (
     <View style={{ flexDirection: "row" }}>
       <Image source={{ uri: product.image }} />
@@ -28,4 +28,6 @@ export function CartItem({
       </Pressable>
     </View>
   );
-}
+};
+
+export default CartItem;

@@ -1,4 +1,5 @@
 import { Product } from "@/types";
+import { memo } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 
 interface ProductCardProps {
@@ -6,7 +7,7 @@ interface ProductCardProps {
   onPress: () => void;
 }
 
-export function ProductCard({ product, onPress }: ProductCardProps) {
+const ProductCard = ({ product, onPress }: ProductCardProps) => {
   return (
     <Pressable onPress={onPress}>
       <View>
@@ -19,4 +20,6 @@ export function ProductCard({ product, onPress }: ProductCardProps) {
       </View>
     </Pressable>
   );
-}
+};
+
+export default memo(ProductCard);

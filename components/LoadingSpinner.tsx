@@ -1,9 +1,11 @@
 import { ActivityIndicator, View } from "react-native";
 
-export function LoadingSpinner() {
+const LoadingSpinner = () => {
   return (
     <View>
       <ActivityIndicator size="large" />
     </View>
   );
-}
+};
+
+export default LoadingSpinner;

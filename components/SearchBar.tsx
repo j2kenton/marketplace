@@ -6,11 +6,11 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
-export function SearchBar({
+const SearchBar = ({
   value,
   onChangeText,
   placeholder = "Search products...",
-}: SearchBarProps) {
+}: SearchBarProps) => {
   return (
     <TextInput
       value={value}
@@ -19,4 +19,6 @@ export function SearchBar({
       placeholderTextColor="#999"
     />
   );
-}
+};
+
+export default SearchBar;

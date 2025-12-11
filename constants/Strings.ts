@@ -15,6 +15,8 @@ const STRINGS = {
   inStock: "In Stock",
   addToCart: "Add to Cart",
   continueShopping: "Continue Shopping",
+  products: "Products",
+  cart: "Cart",
 };
 
 export default STRINGS;

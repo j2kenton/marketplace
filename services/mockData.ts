@@ -156,3 +156,13 @@ export const products: Product[] = Array.from({ length: 50 }, (_, i) => {
     stock: Math.floor(Math.random() * 100),
   };
 });
+
+// Pick the last product in each category to feature
+export const getOneProductPerCategory = (): Product[] => {
+  return categories.map((category) => {
+    const product = [...products]
+      .reverse()
+      .find((p) => p.category.id === category.id);
+    return product!;
+  });
+};

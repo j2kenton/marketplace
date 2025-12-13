@@ -27,7 +27,7 @@ const NUM_COLUMNS = 1;
 
 const StyledFlatList: typeof FlatList = styled(FlatList)`
   flex: 1;
-  padding-horizontal: 16px;
+  padding: 0 16px;
 `;
 
 export default function ProductListScreen() {

@@ -3,9 +3,6 @@ import { Category } from "@/types";
 import { ScrollView } from "react-native";
 import CategoryChip from "./CategoryChip";
 
-// TODO: handle edge case where a real category id is "view_all_categories"
-const VIEW_ALL_CATEGORIES = "view_all_categories";
-
 interface CategoryFilterProps {
   categories: Category[];
   selectedId: string | null;
@@ -14,13 +11,14 @@ interface CategoryFilterProps {
 
 const CategoryFilter = (props: CategoryFilterProps) => {
   const { categories, selectedId, onSelect } = props;
+  const isAllSelected = selectedId === null || selectedId === undefined;
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <CategoryChip
-        id={VIEW_ALL_CATEGORIES}
+        id={null}
         name={STRINGS.all}
-        isSelected={selectedId === VIEW_ALL_CATEGORIES}
+        isSelected={isAllSelected}
         onSelect={onSelect}
       />
       {categories.map(({ id, name }) => (

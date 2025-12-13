@@ -59,6 +59,11 @@ const TotalLabel = styled(Text)`
   font-weight: ${FontWeight.BOLD};
 `;
 
+const TotalAmount = styled(CurrencyDisplay)`
+  width: 100%;
+  text-align: right;
+`;
+
 const ErrorText = styled(Text)``;
 
 function CartContent() {
@@ -175,7 +180,7 @@ function CartContent() {
               <GridCell $width={CART_GRID.QTY} />
               <GridCell $width={CART_GRID.PRICE} />
               <GridCell $width={CART_GRID.TOTAL}>
-                <CurrencyDisplay value={cartTotal} />
+                <TotalAmount value={cartTotal} />
               </GridCell>
               <GridCell $width={CART_GRID.REMOVE} />
             </FooterRow>

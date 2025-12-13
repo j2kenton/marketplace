@@ -112,6 +112,7 @@ function CartContent() {
     router.push({ pathname: "/product/[id]", params: { id: productId } });
   };
 
+  // TODO: move to api service
   const handlePlaceOrder = async () => {
     try {
       setLoading(true);

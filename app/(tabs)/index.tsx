@@ -17,7 +17,9 @@ import {
   loadMore,
   setCategoryFilter,
   setSearch,
+  setSortBy,
 } from "@/store/slices/productsSlice";
+import { SortDirection, SortKey, SortOption } from "@/types";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { FlatList } from "react-native";
@@ -40,7 +42,7 @@ export default function ProductListScreen() {
   const hasMore = useAppSelector(selectHasMore);
   const filters = useAppSelector(selectFilters);
 
-  const { search, categoryId } = filters;
+  const { search, categoryId, sortBy } = filters;
 
   useEffect(() => {
     dispatch(fetchProductsRequest());
@@ -52,6 +54,16 @@ export default function ProductListScreen() {
 
   const handleCategorySelect = (categoryId: string | null) => {
     dispatch(setCategoryFilter(categoryId));
+  };
+
+  const handleSortToggle = (sortKey: SortKey) => {
+    const [currentKey, currentDirection] = sortBy.split("_") as [
+      SortKey,
+      SortDirection
+    ];
+    const nextDirection: SortDirection =
+      currentKey === sortKey && currentDirection === "desc" ? "asc" : "desc";
+    dispatch(setSortBy(`${sortKey}_${nextDirection}` as SortOption));
   };
 
   const handleLoadMore = () => {
@@ -92,6 +104,8 @@ export default function ProductListScreen() {
           categories={categories}
           selectedCategoryId={categoryId}
           onCategorySelect={handleCategorySelect}
+          sortBy={sortBy}
+          onSortToggle={handleSortToggle}
         />
       }
       ListEmptyComponent={<ListEmpty loading={loading} />}

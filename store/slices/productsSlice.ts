@@ -21,7 +21,7 @@ const initialState: ProductsState = {
   filters: {
     search: "",
     categoryId: null,
-    sortBy: "name_asc", // TODO: MOVE TO ENUM
+    sortBy: "rating_desc", // TODO: MOVE TO ENUM
   },
 };
 

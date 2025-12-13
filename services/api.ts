@@ -1,5 +1,11 @@
 import STRINGS from "@/constants/Strings";
-import { Category, Product, ProductFilters } from "@/types";
+import {
+  Category,
+  Product,
+  ProductFilters,
+  SortDirection,
+  SortKey,
+} from "@/types";
 import { categories, products } from "./mockData";
 
 // Simulates network delay
@@ -36,16 +42,25 @@ export const api = {
     }
 
     // Sorting
-    switch (filters.sortBy) {
-      case "price_asc":
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case "price_desc":
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case "name_asc":
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
-        break;
+    const [sortKey, sortDirection] = filters.sortBy.split("_") as [
+      SortKey,
+      SortDirection
+    ];
+
+    const sortAccessors: Record<SortKey, (product: Product) => number> = {
+      price: (product) => product.price,
+      rating: (product) => product.rating,
+      reviews: (product) => product.reviewCount,
+    };
+
+    const accessor = sortAccessors[sortKey];
+    if (accessor) {
+      filtered.sort((a, b) => {
+        const difference = accessor(a) - accessor(b);
+        return sortDirection === "asc" ? difference : -difference;
+      });
+    } else {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     // Pagination - slice the results

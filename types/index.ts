@@ -20,7 +20,9 @@ export interface CartItem {
   quantity: number;
 }
 
-export type SortOption = "price_asc" | "price_desc" | "name_asc";
+export type SortDirection = "asc" | "desc";
+export type SortKey = "price" | "rating" | "reviews";
+export type SortOption = `${SortKey}_${SortDirection}`;
 
 export interface ProductFilters {
   search: string;

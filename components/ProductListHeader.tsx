@@ -1,8 +1,9 @@
-import { Category } from "@/types";
+import { Category, SortKey, SortOption } from "@/types";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import CategoryFilter from "./CategoryFilter";
 import SearchBar from "./SearchBar";
+import SortFilter from "./SortFilter";
 
 const StyledSearchBar = styled(SearchBar)`
   margin-bottom: 6px;
@@ -14,6 +15,8 @@ interface ProductListHeaderProps {
   categories: Category[];
   selectedCategoryId: string | null;
   onCategorySelect: (categoryId: string | null) => void;
+  sortBy: SortOption;
+  onSortToggle: (sortKey: SortKey) => void;
 }
 
 const ProductListHeader = (props: ProductListHeaderProps) => {
@@ -23,6 +26,8 @@ const ProductListHeader = (props: ProductListHeaderProps) => {
     categories,
     selectedCategoryId,
     onCategorySelect,
+    sortBy,
+    onSortToggle,
   } = props;
 
   return (
@@ -33,6 +38,7 @@ const ProductListHeader = (props: ProductListHeaderProps) => {
         selectedId={selectedCategoryId}
         onSelect={onCategorySelect}
       />
+      <SortFilter sortBy={sortBy} onToggle={onSortToggle} />
     </View>
   );
 };

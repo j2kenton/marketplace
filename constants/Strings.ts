@@ -3,9 +3,10 @@ const STRINGS = {
   all: "All",
   noItemsFound: "No items found.",
   cartEmpty: "Your cart is empty",
+  cartEmptyDescription: "Browse products to add them to your cart.",
   error: "Error",
   retry: "Retry",
-  loadMore: "Load More",
+  loadMore: "Load More...",
   orderFailed: "Order failed",
   placeOrder: "Place Order",
   total: "Total:",
@@ -17,6 +18,8 @@ const STRINGS = {
   continueShopping: "Continue Shopping",
   products: "Products",
   cart: "Cart",
+  orderConfirmedTitle: "Order Confirmed!",
+  orderConfirmedMessage: "Thank you for your purchase.",
 };
 
 export default STRINGS;

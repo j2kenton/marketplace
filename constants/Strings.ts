@@ -23,6 +23,7 @@ const STRINGS = {
   rating: "Rating",
   reviews: "Reviews",
   inStock: "In Stock",
+  quantity: "Quantity",
   addToCart: "Add to Cart",
   continueShopping: "Continue Shopping",
   recommendationsHeading: "Does anything catch your eye?",

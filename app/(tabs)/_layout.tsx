@@ -1,3 +1,4 @@
+import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
 import { useAppSelector } from "@/store/hooks";
 import { selectCartItemCount } from "@/store/selectors";
@@ -10,7 +11,16 @@ export default function TabLayout() {
   const cartCount = useAppSelector(selectCartItemCount);
 
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        headerStyle: { backgroundColor: COLORS.background },
+        headerTintColor: COLORS.text,
+        tabBarStyle: { backgroundColor: COLORS.background },
+        tabBarActiveTintColor: COLORS.tabIconSelected,
+        tabBarInactiveTintColor: COLORS.tabIconDefault,
+        sceneStyle: { backgroundColor: COLORS.background },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{

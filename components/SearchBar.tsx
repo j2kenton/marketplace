@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 
 import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
+import { FontSize } from "@/constants/Text";
 
 const Container = styled(View)`
   background-color: ${COLORS.background};
@@ -12,7 +13,7 @@ const Container = styled(View)`
 `;
 
 const Input = styled(TextInput)`
-  font-size: 16px;
+  font-size: ${FontSize.SIZE_16};
   padding: 14px 0;
   color: ${COLORS.text};
 `;

@@ -1,4 +1,5 @@
 import COLORS from "@/constants/Colors";
+import { FontSize } from "@/constants/Text";
 import { memo } from "react";
 import {
   ActivityIndicator,
@@ -56,7 +57,7 @@ interface ButtonTextProps {
 const ButtonText = styled(Text)<ButtonTextProps>`
   text-align: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: ${FontSize.SIZE_16};
   color: ${({ $color }: ButtonTextProps) => $color};
 `;
 

@@ -5,6 +5,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import StarRating from "@/components/StarRating";
 import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
+import { FontSize } from "@/constants/Text";
 import { api } from "@/services/api";
 import { useAppDispatch } from "@/store/hooks";
 import { addToCart } from "@/store/slices/cartSlice";
@@ -34,7 +35,7 @@ const ProductImage = styled(Image)`
 `;
 
 const Title = styled(Text)`
-  font-size: 24px;
+  font-size: ${FontSize.SIZE_24};
   font-weight: bold;
   margin-top: 16px;
   margin-bottom: 8px;

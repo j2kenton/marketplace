@@ -1,4 +1,5 @@
 import COLORS from "@/constants/Colors";
+import { FontSize } from "@/constants/Text";
 import { FontAwesome } from "@expo/vector-icons";
 import { ReactNode } from "react";
 import { Dimensions, Pressable, ScrollView, Text, View } from "react-native";
@@ -28,13 +29,13 @@ const Hero = styled(View)`
 `;
 
 const Title = styled(Text)`
-  font-size: 24px;
+  font-size: ${FontSize.SIZE_24};
   font-weight: bold;
   text-align: center;
 `;
 
 const Message = styled(Text)`
-  font-size: 16px;
+  font-size: ${FontSize.SIZE_16};
   color: ${COLORS.gray700};
   text-align: center;
 `;
@@ -49,7 +50,7 @@ const ActionButton = styled(Pressable)`
 
 const ActionLabel = styled(Text)`
   color: ${COLORS.white};
-  font-size: 16px;
+  font-size: ${FontSize.SIZE_16};
   font-weight: 600;
   text-align: center;
 `;

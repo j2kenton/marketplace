@@ -1,4 +1,5 @@
 import COLORS from "@/constants/Colors";
+import { FontSize } from "@/constants/Text";
 import { FontAwesome } from "@expo/vector-icons";
 import { memo } from "react";
 import {
@@ -41,7 +42,7 @@ const Content = styled(View)<ContentProps>`
 `;
 
 const Label = styled(Text)`
-  font-size: 30px;
+  font-size: ${FontSize.SIZE_30};
   font-weight: bold;
   color: ${COLORS.black};
 `;

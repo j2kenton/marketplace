@@ -1,7 +1,18 @@
 import STRINGS from "@/constants/Strings";
 import { GestureResponderEvent, Text, View } from "react-native";
-import Button from "./Button";
+import styled from "styled-components/native";
+import ActionButton from "./ActionButton";
 import CurrencyDisplay from "./CurrencyDisplay";
+
+const Container = styled(View)`
+  padding: 24px 0;
+`;
+
+const Row = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 24px;
+`;
 
 interface CartFooterProps {
   total: number;
@@ -19,16 +30,19 @@ const CartFooter = (props: CartFooterProps) => {
   }
 
   return (
-    <View>
-      <View>
+    <Container>
+      <Row>
         <Text>{STRINGS.total}</Text>
         <CurrencyDisplay value={total} />
-      </View>
+      </Row>
       {error ? <Text>{error}</Text> : null}
-      <Button onPress={onPlaceOrder} loading={loading}>
-        {STRINGS.placeOrder}
-      </Button>
-    </View>
+      <ActionButton
+        onPress={onPlaceOrder}
+        label={STRINGS.placeOrder}
+        iconName="check"
+        loading={loading}
+      />
+    </Container>
   );
 };
 

@@ -1,6 +1,21 @@
+import { TextInput, View } from "react-native";
+import styled from "styled-components/native";
+
 import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
-import { TextInput } from "react-native";
+
+const Container = styled(View)`
+  background-color: ${COLORS.background};
+  border-radius: 12px;
+  padding: 0 16px;
+  margin: 12px 0;
+`;
+
+const Input = styled(TextInput)`
+  font-size: 16px;
+  padding: 14px 0;
+  color: ${COLORS.text};
+`;
 
 interface SearchBarProps {
   value: string;
@@ -14,12 +29,14 @@ const SearchBar = ({
   placeholder = STRINGS.searchPlaceholder,
 }: SearchBarProps) => {
   return (
-    <TextInput
-      value={value}
-      onChangeText={onChangeText}
-      placeholder={placeholder}
-      placeholderTextColor={COLORS.placeholderTextColor}
-    />
+    <Container>
+      <Input
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        placeholderTextColor={COLORS.placeholderTextColor}
+      />
+    </Container>
   );
 };
 

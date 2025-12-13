@@ -3,16 +3,16 @@ import { memo } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 
+const StyledView = styled(View)`
+  flex-direction: row;
+`;
+
 interface StarDisplayProps {
   count: number;
   max: number;
   size?: number;
   color?: string;
 }
-
-const StyledView = styled(View)`
-  flex-direction: row;
-`;
 
 const StarDisplay = (props: StarDisplayProps) => {
   const { count, max, size = 16, color = "#FFD700" } = props;

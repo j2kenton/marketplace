@@ -1,7 +1,13 @@
 import STRINGS from "@/constants/Strings";
-import { GestureResponderEvent } from "react-native";
+import { GestureResponderEvent, View } from "react-native";
+import styled from "styled-components/native";
 import Button from "./Button";
-import LoadingSpinner from "./LoadingSpinner";
+
+const Container = styled(View)`
+  width: 100%;
+  align-items: center;
+  padding-vertical: 24px;
+`;
 
 interface ListFooterProps {
   loading?: boolean;
@@ -13,18 +19,16 @@ interface ListFooterProps {
 const ListFooter = (props: ListFooterProps) => {
   const { loading, hasMore, isEmpty, onLoadMore } = props;
 
-  if (loading && isEmpty) {
-    return <LoadingSpinner />;
-  }
-
-  if (!hasMore) {
+  if (isEmpty || !hasMore) {
     return null;
   }
 
   return (
-    <Button onPress={onLoadMore} loading={loading}>
-      {STRINGS.loadMore}
-    </Button>
+    <Container>
+      <Button onPress={onLoadMore} loading={loading}>
+        {STRINGS.loadMore}
+      </Button>
+    </Container>
   );
 };
 

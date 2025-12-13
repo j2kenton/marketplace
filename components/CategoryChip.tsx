@@ -8,7 +8,7 @@ interface ChipPressableProps {
 
 const ChipPressable = styled(Pressable)<ChipPressableProps>`
   background-color: ${({ $isSelected }: ChipPressableProps) =>
-    $isSelected ? COLORS.tint : "#f0f0f0"};
+    $isSelected ? COLORS.tint : COLORS.gray200};
   border-radius: 16px;
   padding: 8px 14px;
   margin-right: 8px;

@@ -35,7 +35,7 @@ const Title = styled(Text)`
 
 const Message = styled(Text)`
   font-size: 16px;
-  color: #444;
+  color: ${COLORS.gray700};
   text-align: center;
 `;
 
@@ -48,7 +48,7 @@ const ActionButton = styled(Pressable)`
 `;
 
 const ActionLabel = styled(Text)`
-  color: #fff;
+  color: ${COLORS.white};
   font-size: 16px;
   font-weight: 600;
   text-align: center;

@@ -3,6 +3,7 @@ import CartItem, { CART_GRID } from "@/components/CartItem";
 import Confirmation from "@/components/Confirmation";
 import CurrencyDisplay from "@/components/CurrencyDisplay";
 import Recommendations from "@/components/Recommendations";
+import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
 import { api } from "@/services/api";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -138,7 +139,7 @@ function CartContent() {
     return (
       <Confirmation
         iconName="check-circle"
-        iconColor="green"
+        iconColor={COLORS.success}
         title={STRINGS.orderConfirmedTitle}
         message={STRINGS.orderConfirmedMessage}
       >
@@ -186,7 +187,7 @@ function CartContent() {
         label={STRINGS.placeOrder}
         iconName="check"
         loading={loading}
-        backgroundColor="#22c55e"
+        backgroundColor={COLORS.success}
       />
     </ScreenContainer>
   );

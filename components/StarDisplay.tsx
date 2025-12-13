@@ -1,3 +1,4 @@
+import COLORS from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { memo } from "react";
 import { View } from "react-native";
@@ -15,7 +16,7 @@ interface StarDisplayProps {
 }
 
 const StarDisplay = (props: StarDisplayProps) => {
-  const { count, max, size = 16, color = "#FFD700" } = props;
+  const { count, max, size = 16, color = COLORS.warning } = props;
 
   if (count < 0 || count > max) {
     return null;

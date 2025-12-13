@@ -18,14 +18,14 @@ export enum ButtonVariant {
 const VARIANT_STYLES = {
   [ButtonVariant.PRIMARY]: {
     backgroundColor: COLORS.tint,
-    textColor: "#fff",
+    textColor: COLORS.white,
   },
   [ButtonVariant.SECONDARY]: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: COLORS.gray200,
     textColor: COLORS.text,
   },
   [ButtonVariant.DANGER]: {
-    backgroundColor: "#dc3545",
+    backgroundColor: COLORS.danger,
     textColor: COLORS.background,
   },
 };
@@ -91,7 +91,7 @@ const Button = (props: ButtonProps) => {
     <StyledPressable onPress={handlePress} disabled={!isPressable}>
       <ContentWrapper
         $backgroundColor={
-          transparent ? "transparent" : variantStyle.backgroundColor
+          transparent ? COLORS.transparent : variantStyle.backgroundColor
         }
         $disabled={disabled}
       >

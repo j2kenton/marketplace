@@ -11,7 +11,7 @@ import styled from "styled-components/native";
 const Divider = styled(View)`
   width: 100%;
   height: 1px;
-  background-color: #ddd;
+  background-color: ${COLORS.gray400};
   margin-bottom: 24px;
 `;
 

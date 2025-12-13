@@ -1,4 +1,5 @@
 import { MINUS, PLUS } from "@/constants/Chars";
+import COLORS from "@/constants/Colors";
 import { Pressable, Text, TextInput, View } from "react-native";
 import styled from "styled-components/native";
 
@@ -13,7 +14,7 @@ const Container = styled(View)`
 `;
 
 const StepButton = styled(Pressable)`
-  background-color: #e0e0e0;
+  background-color: ${COLORS.gray300};
   border-radius: 4px;
   padding: 4px;
 `;

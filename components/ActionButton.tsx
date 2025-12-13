@@ -1,3 +1,4 @@
+import COLORS from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { memo } from "react";
 import {
@@ -9,7 +10,7 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 
-const DEFAULT_BACKGROUND = "#FFD700";
+const DEFAULT_BACKGROUND = COLORS.warning;
 
 interface ContainerProps {
   $backgroundColor: string;
@@ -42,7 +43,7 @@ const Content = styled(View)<ContentProps>`
 const Label = styled(Text)`
   font-size: 30px;
   font-weight: bold;
-  color: #000;
+  color: ${COLORS.black};
 `;
 
 interface ActionButtonProps {
@@ -76,10 +77,10 @@ const ActionButton = (props: ActionButtonProps) => {
       <ButtonPressable onPress={handlePress} disabled={!isPressable}>
         <Content $dimmed={disabled}>
           {loading ? (
-            <ActivityIndicator color="#000" size="large" />
+            <ActivityIndicator color={COLORS.black} size="large" />
           ) : (
             <>
-              <FontAwesome name={iconName} size={36} color="#000" />
+              <FontAwesome name={iconName} size={36} color={COLORS.black} />
               <Label>{label}</Label>
             </>
           )}

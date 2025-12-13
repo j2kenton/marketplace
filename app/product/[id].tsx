@@ -3,6 +3,7 @@ import CurrencyDisplay from "@/components/CurrencyDisplay";
 import ErrorState from "@/components/ErrorState";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import StarRating from "@/components/StarRating";
+import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
 import { api } from "@/services/api";
 import { useAppDispatch } from "@/store/hooks";
@@ -114,21 +115,21 @@ export default function ProductDetailScreen() {
           </Title>
           <Description>{description}</Description>
           <InfoRow>
-            <FontAwesome name="dollar" size={ICON_SIZE} color="#000" />
+            <FontAwesome name="dollar" size={ICON_SIZE} color={COLORS.black} />
             <CurrencyDisplay value={price} />
           </InfoRow>
           <InfoRow>
-            <FontAwesome name="star" size={ICON_SIZE} color="#000" />
+            <FontAwesome name="star" size={ICON_SIZE} color={COLORS.black} />
             <StarRating rating={rating} reviewCount={reviewCount} />
           </InfoRow>
           <InfoRow>
-            <FontAwesome name="tag" size={ICON_SIZE} color="#000" />
+            <FontAwesome name="tag" size={ICON_SIZE} color={COLORS.black} />
             <Text>
               {STRINGS.category}: {category.name}
             </Text>
           </InfoRow>
           <InfoRow>
-            <FontAwesome name="cube" size={ICON_SIZE} color="#000" />
+            <FontAwesome name="cube" size={ICON_SIZE} color={COLORS.black} />
             <Text>
               {STRINGS.inStock}: {stock}
             </Text>

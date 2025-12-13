@@ -1,3 +1,4 @@
+import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
 import { FontAwesome } from "@expo/vector-icons";
 import { Text, View } from "react-native";
@@ -31,7 +32,9 @@ const ListEmpty = (props: EmptyStateProps) => {
 
   return (
     <EmptyContainer>
-      {iconName && <Icon name={iconName} size={ICON_SIZE} color="lightgray" />}
+      {iconName && (
+        <Icon name={iconName} size={ICON_SIZE} color={COLORS.mutedIcon} />
+      )}
       <Text>{message}</Text>
     </EmptyContainer>
   );

@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { addToCart } from "@/store/slices/cartSlice";
 import { Product } from "@/types";
 import { FontAwesome } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import styled from "styled-components/native";
@@ -54,6 +54,7 @@ const InfoRow = styled(View)`
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [product, setProduct] = useState<Product | null>(null);
@@ -89,6 +90,7 @@ export default function ProductDetailScreen() {
           maxQuantity: product.stock,
         })
       );
+      router.push("/cart");
     }
   };
 

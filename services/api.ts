@@ -1,3 +1,4 @@
+import STRINGS from "@/constants/Strings";
 import { Category, Product, ProductFilters } from "@/types";
 import { categories, products } from "./mockData";
 
@@ -77,7 +78,7 @@ export const api = {
     await delay(800);
     // Simulate 10% failure rate for realism
     if (Math.random() < 0.1) {
-      throw new Error("Order failed. Please try again.");
+      throw new Error(STRINGS.orderFailed);
     }
     return { orderId: `order-${Date.now()}` };
   },

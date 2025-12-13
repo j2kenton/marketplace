@@ -1,6 +1,7 @@
 import ProductCard from "@/components/ProductCard";
 import { EYES } from "@/constants/Chars";
 import COLORS from "@/constants/Colors";
+import STRINGS from "@/constants/Strings";
 import { getOneProductPerCategory } from "@/services/mockData";
 import { useAppDispatch } from "@/store/hooks";
 import { setCategoryFilter } from "@/store/slices/productsSlice";
@@ -57,7 +58,7 @@ const Recommendations = () => {
     <>
       <Divider />
       <Heading>
-        Does anything catch your eye? <Eye>{EYES}</Eye>
+        {STRINGS.recommendationsHeading} <Eye>{EYES}</Eye>
       </Heading>
       <ProductList>
         {featuredProducts.map((product) => (

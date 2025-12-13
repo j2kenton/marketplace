@@ -1,4 +1,5 @@
 import COLORS from "@/constants/Colors";
+import STRINGS from "@/constants/Strings";
 import { store } from "@/store";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
@@ -47,7 +48,7 @@ export default function RootLayout() {
         {/* TODO: use product name for title */}
         <Stack.Screen
           name="product/[id]"
-          options={{ title: "Product Details" }}
+          options={{ title: STRINGS.productDetailsTitle }}
         />
       </Stack>
     </Provider>

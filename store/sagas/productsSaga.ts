@@ -1,3 +1,4 @@
+import STRINGS from "@/constants/Strings";
 import { api } from "@/services/api";
 import { call, put, select, takeLatest } from "redux-saga/effects";
 import { RootState } from "../index";
@@ -29,7 +30,7 @@ function* fetchProductsSaga() {
   } catch (error) {
     yield put(
       fetchProductsFailure(
-        error instanceof Error ? error.message : "Unknown error" // TODO: extract string to constant
+        error instanceof Error ? error.message : STRINGS.unknownError
       )
     );
   }

@@ -1,7 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { memo } from "react";
 import { View } from "react-native";
-import { styled } from "styled-components";
+import styled from "styled-components/native";
 
 interface StarDisplayProps {
   count: number;
@@ -28,17 +28,17 @@ const StarDisplay = (props: StarDisplayProps) => {
   let starIndex = 0;
 
   for (let i = 0; i < filledStars; i++) {
-    starIndex++;
     stars.push(
       <FontAwesome key={`star-${i}`} name="star" size={size} color={color} />
     );
+    starIndex++;
   }
 
   for (let i = 0; i < emptyStars; i++) {
-    starIndex++;
     stars.push(
       <FontAwesome key={`star-${i}`} name="star-o" size={size} color={color} />
     );
+    starIndex++;
   }
 
   return <StyledView>{stars}</StyledView>;

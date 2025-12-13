@@ -1,6 +1,6 @@
 import { Category } from "@/types";
 import { View } from "react-native";
-import { styled } from "styled-components";
+import styled from "styled-components/native";
 import CategoryFilter from "./CategoryFilter";
 import SearchBar from "./SearchBar";
 

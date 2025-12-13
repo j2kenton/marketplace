@@ -21,7 +21,7 @@ import {
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { FlatList } from "react-native";
-import { styled } from "styled-components";
+import styled from "styled-components/native";
 
 const NUM_COLUMNS = 1;
 

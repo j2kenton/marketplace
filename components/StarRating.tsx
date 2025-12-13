@@ -22,11 +22,15 @@ const StarRating = (props: StarRatingProps) => {
     return null;
   }
 
+  const ratingString = rating.toLocaleString(undefined, {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
   const reviewCountString = ["(", reviewCount, ")"].join("");
 
   return (
-    <View>
-      <Text>{rating}</Text>
+    <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <Text>{ratingString}</Text>
       <StarDisplay count={rating} max={MAX_RATING} />
       <Text> {reviewCountString}</Text>
     </View>

@@ -1,4 +1,4 @@
-import Button from "@/components/Button";
+import ActionButton from "@/components/ActionButton";
 import CurrencyDisplay from "@/components/CurrencyDisplay";
 import ErrorState from "@/components/ErrorState";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -8,13 +8,50 @@ import { api } from "@/services/api";
 import { useAppDispatch } from "@/store/hooks";
 import { addToCart } from "@/store/slices/cartSlice";
 import { Product } from "@/types";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { FontAwesome } from "@expo/vector-icons";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
+import styled from "styled-components/native";
+
+const TITLE_ARIA_LEVEL = 2;
+const ICON_SIZE = 16;
+
+const ScreenContainer = styled(View)`
+  flex: 1;
+`;
+
+const Content = styled(View)`
+  flex: 1;
+  padding: 16px;
+`;
+
+const ProductImage = styled(Image)`
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+`;
+
+const Title = styled(Text)`
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 8px;
+`;
+
+const Description = styled(Text)`
+  margin-bottom: 12px;
+`;
+
+const InfoRow = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+`;
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [product, setProduct] = useState<Product | null>(null);
@@ -44,12 +81,15 @@ export default function ProductDetailScreen() {
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart({ productId: product.id, quantity }));
-      router.back();
     }
   };
 
   if (loading) {
-    return <LoadingSpinner size="large" />;
+    return (
+      <ScreenContainer>
+        <LoadingSpinner />
+      </ScreenContainer>
+    );
   }
 
   if (error || !product) {
@@ -61,25 +101,45 @@ export default function ProductDetailScreen() {
     );
   }
 
-  const { price, rating, reviewCount, category, stock, name } = product;
+  const { price, rating, reviewCount, category, stock, name, description } =
+    product;
 
   return (
-    <View>
-      <Image source={{ uri: product.image }} />
-      <View>
-        <Text>{name}</Text>
-        <CurrencyDisplay value={price} />
-        <StarRating rating={rating} reviewCount={reviewCount} />
-        <Text>
-          {STRINGS.category}: {category.name}
-        </Text>
-        <Text>
-          {STRINGS.inStock}: {stock}
-        </Text>
-      </View>
-      <View>
-        <Button onPress={handleAddToCart}>{STRINGS.addToCart}</Button>
-      </View>
-    </View>
+    <ScreenContainer>
+      <Content>
+        <ProductImage source={{ uri: product.image }} />
+        <View>
+          <Title accessibilityRole="header" aria-level={TITLE_ARIA_LEVEL}>
+            {name}
+          </Title>
+          <Description>{description}</Description>
+          <InfoRow>
+            <FontAwesome name="dollar" size={ICON_SIZE} color="#000" />
+            <CurrencyDisplay value={price} />
+          </InfoRow>
+          <InfoRow>
+            <FontAwesome name="star" size={ICON_SIZE} color="#000" />
+            <StarRating rating={rating} reviewCount={reviewCount} />
+          </InfoRow>
+          <InfoRow>
+            <FontAwesome name="tag" size={ICON_SIZE} color="#000" />
+            <Text>
+              {STRINGS.category}: {category.name}
+            </Text>
+          </InfoRow>
+          <InfoRow>
+            <FontAwesome name="cube" size={ICON_SIZE} color="#000" />
+            <Text>
+              {STRINGS.inStock}: {stock}
+            </Text>
+          </InfoRow>
+        </View>
+      </Content>
+      <ActionButton
+        onPress={handleAddToCart}
+        label={STRINGS.addToCart}
+        iconName="shopping-cart"
+      />
+    </ScreenContainer>
   );
 }

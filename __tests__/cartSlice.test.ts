@@ -38,6 +38,23 @@ describe("cartSlice", () => {
       expect(state.items[0]).toEqual({ productId: "1", quantity: 1 });
       expect(state.items[1]).toEqual({ productId: "2", quantity: 3 });
     });
+
+    it("should not exceed the provided maxQuantity when adding an existing item", () => {
+      const stateWithItem = { items: [{ productId: "1", quantity: 2 }] };
+      const state = cartReducer(
+        stateWithItem,
+        addToCart({ productId: "1", quantity: 5, maxQuantity: 3 })
+      );
+      expect(state.items[0].quantity).toBe(3);
+    });
+
+    it("should not exceed the provided maxQuantity when adding a new item", () => {
+      const state = cartReducer(
+        initialState,
+        addToCart({ productId: "1", quantity: 5, maxQuantity: 4 })
+      );
+      expect(state.items[0].quantity).toBe(4);
+    });
   });
 
   describe("removeFromCart", () => {
@@ -68,6 +85,15 @@ describe("cartSlice", () => {
         updateQuantity({ productId: "1", quantity: 5 })
       );
       expect(state.items[0].quantity).toBe(5);
+    });
+
+    it("should not exceed the provided maxQuantity when updating quantity", () => {
+      const stateWithItem = { items: [{ productId: "1", quantity: 1 }] };
+      const state = cartReducer(
+        stateWithItem,
+        updateQuantity({ productId: "1", quantity: 10, maxQuantity: 4 })
+      );
+      expect(state.items[0].quantity).toBe(4);
     });
   });
 

@@ -96,8 +96,12 @@ function CartContent() {
     }
   }, [cartItems.length, orderComplete]);
 
-  const handleUpdateQuantity = (productId: string, quantity: number) => {
-    dispatch(updateQuantity({ productId, quantity }));
+  const handleUpdateQuantity = (
+    productId: string,
+    quantity: number,
+    maxQuantity: number
+  ) => {
+    dispatch(updateQuantity({ productId, quantity, maxQuantity }));
   };
 
   const handleRemove = (productId: string) => {
@@ -134,7 +138,9 @@ function CartContent() {
       <CartItem
         product={product}
         quantity={quantity}
-        onUpdateQuantity={(qty) => handleUpdateQuantity(productId, qty)}
+        onUpdateQuantity={(qty) =>
+          handleUpdateQuantity(productId, qty, product.stock)
+        }
         onRemove={() => handleRemove(productId)}
         onPressProduct={() => handleViewProduct(productId)}
       />

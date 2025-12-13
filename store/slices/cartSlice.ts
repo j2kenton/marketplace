@@ -1,4 +1,5 @@
 import { CartItem } from "@/types";
+import { clampQuantity } from "@/utils/Numbers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface CartState {
@@ -15,15 +16,24 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(
       state,
-      action: PayloadAction<{ productId: string; quantity: number }>
+      action: PayloadAction<{
+        productId: string;
+        quantity: number;
+        maxQuantity?: number;
+      }>
     ) {
+      const { productId, quantity, maxQuantity } = action.payload;
       const existingItem = state.items.find(
-        (item) => item.productId === action.payload.productId
+        (item) => item.productId === productId
+      );
+      const nextQuantity = clampQuantity(
+        (existingItem?.quantity ?? 0) + quantity,
+        maxQuantity
       );
       if (existingItem) {
-        existingItem.quantity += action.payload.quantity;
-      } else {
-        state.items.push(action.payload);
+        existingItem.quantity = nextQuantity;
+      } else if (nextQuantity > 0) {
+        state.items.push({ productId, quantity: nextQuantity });
       }
     },
     removeFromCart(state, action: PayloadAction<string>) {
@@ -33,13 +43,16 @@ const cartSlice = createSlice({
     },
     updateQuantity(
       state,
-      action: PayloadAction<{ productId: string; quantity: number }>
+      action: PayloadAction<{
+        productId: string;
+        quantity: number;
+        maxQuantity?: number;
+      }>
     ) {
-      const item = state.items.find(
-        (item) => item.productId === action.payload.productId
-      );
+      const { productId, quantity, maxQuantity } = action.payload;
+      const item = state.items.find((item) => item.productId === productId);
       if (item) {
-        item.quantity = Math.max(0, action.payload.quantity); // TODO: EXTRACT MAGIC NUMBER
+        item.quantity = clampQuantity(quantity, maxQuantity);
       }
     },
     clearCart(state) {

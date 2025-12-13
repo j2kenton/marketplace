@@ -76,7 +76,7 @@ interface CartItemProps {
 const CartItem = (props: CartItemProps) => {
   const { product, quantity, onUpdateQuantity, onRemove, onPressProduct } =
     props;
-  const { price, name, image } = product;
+  const { price, name, image, stock } = product;
 
   return (
     <Container>
@@ -85,7 +85,11 @@ const CartItem = (props: CartItemProps) => {
         <ProductName numberOfLines={LINES_OF_TEXT}>{name}</ProductName>
       </ProductPressable>
       <QuantityColumn>
-        <QuantitySelector value={quantity} onChange={onUpdateQuantity} />
+        <QuantitySelector
+          value={quantity}
+          onChange={onUpdateQuantity}
+          max={stock}
+        />
       </QuantityColumn>
       <PriceText>@ {formatPrice(price)}</PriceText>
       <TotalText>{formatPrice(price * quantity)}</TotalText>

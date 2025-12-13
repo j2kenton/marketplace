@@ -82,7 +82,13 @@ export default function ProductDetailScreen() {
 
   const handleAddToCart = () => {
     if (product) {
-      dispatch(addToCart({ productId: product.id, quantity }));
+      dispatch(
+        addToCart({
+          productId: product.id,
+          quantity,
+          maxQuantity: product.stock,
+        })
+      );
     }
   };
 

@@ -56,19 +56,27 @@ const productsSlice = createSlice({
       state.filters.search = action.payload;
       state.page = 1; // TODO: EXTRACT MAGIC NUMBER
       state.items = [];
+      state.loading = true;
+      state.error = null;
     },
     setCategoryFilter(state, action: PayloadAction<string | null>) {
       state.filters.categoryId = action.payload;
       state.page = 1; // TODO: EXTRACT MAGIC NUMBER
       state.items = [];
+      state.loading = true;
+      state.error = null;
     },
     setSortBy(state, action: PayloadAction<SortOption>) {
       state.filters.sortBy = action.payload;
       state.page = 1; // TODO: EXTRACT MAGIC NUMBER
       state.items = [];
+      state.loading = true;
+      state.error = null;
     },
     loadMore(state) {
       state.page += 1; // TODO: EXTRACT MAGIC NUMBER
+      state.loading = true;
+      state.error = null;
     },
     // Reset everything
     resetFilters(state) {

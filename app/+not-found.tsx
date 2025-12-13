@@ -1,6 +1,6 @@
 import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
-import { FontSize } from "@/constants/Text";
+import { FontSize, FontWeight } from "@/constants/Text";
 import { Link, Stack } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: FontSize.SIZE_20,
-    fontWeight: "bold",
+    fontWeight: FontWeight.BOLD,
   },
   link: {
     marginTop: 15,

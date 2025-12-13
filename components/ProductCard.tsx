@@ -1,6 +1,6 @@
 import { CURRENCY_SYMBOL } from "@/constants/Chars";
 import COLORS from "@/constants/Colors";
-import { FontSize } from "@/constants/Text";
+import { FontSize, FontWeight } from "@/constants/Text";
 import { Product } from "@/types";
 import { memo } from "react";
 import {
@@ -34,7 +34,7 @@ const ProductImage = styled(Image)`
 
 const Title = styled(Text)`
   font-size: ${FontSize.SIZE_20};
-  font-weight: normal;
+  font-weight: ${FontWeight.REGULAR};
   margin-top: 10px;
 `;
 

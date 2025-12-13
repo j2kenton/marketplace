@@ -2,7 +2,7 @@ import ProductCard from "@/components/ProductCard";
 import { EYES } from "@/constants/Chars";
 import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
-import { FontSize } from "@/constants/Text";
+import { FontSize, FontWeight } from "@/constants/Text";
 import { getOneProductPerCategory } from "@/services/mockData";
 import { useAppDispatch } from "@/store/hooks";
 import { setCategoryFilter } from "@/store/slices/productsSlice";
@@ -19,7 +19,7 @@ const Divider = styled(View)`
 
 const Heading = styled(Text)`
   font-size: ${FontSize.SIZE_18};
-  font-weight: 600;
+  font-weight: ${FontWeight.SEMI_BOLD};
   margin-bottom: 32px;
   text-align: left;
 `;
@@ -35,7 +35,7 @@ const ProductList = styled(View)`
 
 const CategoryLink = styled(Text)`
   font-size: ${FontSize.SIZE_21};
-  font-weight: 600;
+  font-weight: ${FontWeight.SEMI_BOLD};
   color: ${COLORS.tint};
   text-decoration-line: underline;
   margin-bottom: 8px;

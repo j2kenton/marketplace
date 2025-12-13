@@ -1,5 +1,5 @@
 import COLORS from "@/constants/Colors";
-import { FontSize } from "@/constants/Text";
+import { FontSize, FontWeight } from "@/constants/Text";
 import { Pressable, Text } from "react-native";
 import styled from "styled-components/native";
 
@@ -24,7 +24,7 @@ const ChipLabel = styled(Text)<ChipLabelProps>`
     $isSelected ? COLORS.background : COLORS.text};
   font-size: ${FontSize.SIZE_14};
   font-weight: ${({ $isSelected }: ChipLabelProps) =>
-    $isSelected ? "600" : "400"};
+    $isSelected ? FontWeight.SEMI_BOLD : FontWeight.REGULAR};
 `;
 
 interface CategoryChipProps {

@@ -5,6 +5,7 @@ import CurrencyDisplay from "@/components/CurrencyDisplay";
 import Recommendations from "@/components/Recommendations";
 import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
+import { FontWeight } from "@/constants/Text";
 import { api } from "@/services/api";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectCartTotal, selectCartWithProducts } from "@/store/selectors";
@@ -55,7 +56,7 @@ const GridCell = styled(View)<GridCellProps>`
 
 const TotalLabel = styled(Text)`
   flex: 1;
-  font-weight: bold;
+  font-weight: ${FontWeight.BOLD};
 `;
 
 const ErrorText = styled(Text)``;

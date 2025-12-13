@@ -1,5 +1,5 @@
 import COLORS from "@/constants/Colors";
-import { FontSize } from "@/constants/Text";
+import { FontSize, FontWeight } from "@/constants/Text";
 import { FontAwesome } from "@expo/vector-icons";
 import { ReactNode } from "react";
 import { Dimensions, Pressable, ScrollView, Text, View } from "react-native";
@@ -30,7 +30,7 @@ const Hero = styled(View)`
 
 const Title = styled(Text)`
   font-size: ${FontSize.SIZE_24};
-  font-weight: bold;
+  font-weight: ${FontWeight.BOLD};
   text-align: center;
 `;
 
@@ -51,7 +51,7 @@ const ActionButton = styled(Pressable)`
 const ActionLabel = styled(Text)`
   color: ${COLORS.white};
   font-size: ${FontSize.SIZE_16};
-  font-weight: 600;
+  font-weight: ${FontWeight.SEMI_BOLD};
   text-align: center;
 `;
 

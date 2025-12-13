@@ -21,8 +21,14 @@ import {
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { FlatList } from "react-native";
+import { styled } from "styled-components";
 
-const NUM_COLUMNS = 2;
+const NUM_COLUMNS = 1;
+
+const StyledFlatList: typeof FlatList = styled(FlatList)`
+  flex: 1;
+  padding-horizontal: 16px;
+`;
 
 export default function ProductListScreen() {
   const router = useRouter();
@@ -69,7 +75,8 @@ export default function ProductListScreen() {
   }
 
   return (
-    <FlatList
+    <StyledFlatList
+      contentContainerStyle={{ gap: 12, flexGrow: 1 }}
       data={products}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (

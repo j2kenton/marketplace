@@ -1,7 +1,12 @@
 import { Category } from "@/types";
 import { View } from "react-native";
+import { styled } from "styled-components";
 import CategoryFilter from "./CategoryFilter";
 import SearchBar from "./SearchBar";
+
+const StyledSearchBar = styled(SearchBar)`
+  margin-bottom: 6px;
+`;
 
 interface ProductListHeaderProps {
   searchValue: string;
@@ -22,7 +27,7 @@ const ProductListHeader = (props: ProductListHeaderProps) => {
 
   return (
     <View>
-      <SearchBar value={searchValue} onChangeText={onSearchChange} />
+      <StyledSearchBar value={searchValue} onChangeText={onSearchChange} />
       <CategoryFilter
         categories={categories}
         selectedId={selectedCategoryId}

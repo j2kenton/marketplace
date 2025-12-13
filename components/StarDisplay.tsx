@@ -1,14 +1,21 @@
-import { EMPTY_STAR, STAR_SYMBOL } from "@/constants/Chars";
+import { FontAwesome } from "@expo/vector-icons";
 import { memo } from "react";
-import { Text } from "react-native";
+import { View } from "react-native";
+import { styled } from "styled-components";
 
 interface StarDisplayProps {
   count: number;
   max: number;
+  size?: number;
+  color?: string;
 }
 
+const StyledView = styled(View)`
+  flex-direction: row;
+`;
+
 const StarDisplay = (props: StarDisplayProps) => {
-  const { count, max } = props;
+  const { count, max, size = 16, color = "#FFD700" } = props;
 
   if (count < 0 || count > max) {
     return null;
@@ -16,9 +23,25 @@ const StarDisplay = (props: StarDisplayProps) => {
 
   const filledStars = Math.round(count);
   const emptyStars = max - filledStars;
-  const stars = STAR_SYMBOL.repeat(filledStars) + EMPTY_STAR.repeat(emptyStars);
 
-  return <Text>{stars}</Text>;
+  const stars = [];
+  let starIndex = 0;
+
+  for (let i = 0; i < filledStars; i++) {
+    starIndex++;
+    stars.push(
+      <FontAwesome key={`star-${i}`} name="star" size={size} color={color} />
+    );
+  }
+
+  for (let i = 0; i < emptyStars; i++) {
+    starIndex++;
+    stars.push(
+      <FontAwesome key={`star-${i}`} name="star-o" size={size} color={color} />
+    );
+  }
+
+  return <StyledView>{stars}</StyledView>;
 };
 
 export default memo(StarDisplay);

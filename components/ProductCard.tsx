@@ -1,7 +1,7 @@
-import { CURRENCY_SYMBOL } from "@/constants/Chars";
 import COLORS from "@/constants/Colors";
 import { FontSize, FontWeight } from "@/constants/Text";
 import { Product } from "@/types";
+import { formatPrice } from "@/utils/Text";
 import { memo } from "react";
 import {
   GestureResponderEvent,
@@ -62,10 +62,7 @@ const ProductCard = (props: ProductCardProps) => {
         <ProductImage source={{ uri: image }} />
         <Title numberOfLines={LINES_OF_TEXT}>{name}</Title>
         <PriceRow>
-          <Price>
-            {CURRENCY_SYMBOL}
-            {price}
-          </Price>
+          <Price>{formatPrice(price)}</Price>
           <StarRating rating={rating} reviewCount={reviewCount} />
         </PriceRow>
       </ContentWrapper>

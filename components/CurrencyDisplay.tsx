@@ -1,8 +1,6 @@
-import { CURRENCY_SYMBOL } from "@/constants/Chars";
+import { formatPrice } from "@/utils/Text";
 import { memo } from "react";
 import { Text, TextProps } from "react-native";
-
-const CURRENCY_DECIMALS = 2;
 
 interface CurrencyDisplayProps extends TextProps {
   value: number;
@@ -13,8 +11,7 @@ const CurrencyDisplay = (props: CurrencyDisplayProps) => {
 
   return (
     <Text {...textProps} style={style}>
-      {CURRENCY_SYMBOL}
-      {value.toFixed(CURRENCY_DECIMALS)}
+      {formatPrice(value)}
     </Text>
   );
 };

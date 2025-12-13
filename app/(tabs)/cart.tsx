@@ -1,6 +1,8 @@
-import CartFooter from "@/components/CartFooter";
-import CartItem from "@/components/CartItem";
-import ListEmpty from "@/components/ListEmpty";
+import ActionButton from "@/components/ActionButton";
+import CartItem, { CART_GRID } from "@/components/CartItem";
+import Confirmation from "@/components/Confirmation";
+import CurrencyDisplay from "@/components/CurrencyDisplay";
+import Recommendations from "@/components/Recommendations";
 import STRINGS from "@/constants/Strings";
 import { api } from "@/services/api";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -10,19 +12,82 @@ import {
   removeFromCart,
   updateQuantity,
 } from "@/store/slices/cartSlice";
-import { useRouter } from "expo-router";
-import { useState } from "react";
-import { FlatList } from "react-native";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import type { ListRenderItem } from "react-native";
+import { Text, View } from "react-native";
+import styled from "styled-components/native";
 
-export default function CartScreen() {
+type CartListItem = ReturnType<typeof selectCartWithProducts>[number];
+
+const ScreenContainer = styled(View)`
+  flex: 1;
+`;
+
+const CartList = styled.FlatList.attrs({
+  contentContainerStyle: { flexGrow: 1 },
+})`
+  flex: 1;
+  padding: 16px 8px 16px 16px;
+`;
+
+const Footer = styled(View)`
+  padding-vertical: 24px;
+`;
+
+const FooterRow = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 24px;
+`;
+
+interface GridCellProps {
+  $width: number;
+  $marginRight?: number;
+}
+
+const GridCell = styled(View)<GridCellProps>`
+  width: ${({ $width }: GridCellProps) => `${$width}px`};
+  ${({ $marginRight }: GridCellProps) =>
+    $marginRight ? `margin-right: ${$marginRight}px;` : ""};
+`;
+
+const TotalLabel = styled(Text)`
+  flex: 1;
+  font-weight: bold;
+`;
+
+const ErrorText = styled(Text)``;
+
+function CartContent() {
+  const { status } = useLocalSearchParams<{ status?: string }>();
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const cartItems = useAppSelector(selectCartWithProducts);
   const cartTotal = useAppSelector(selectCartTotal);
 
+  const [orderComplete, setOrderComplete] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (status === "success") {
+      setOrderComplete(true);
+    }
+  }, [status]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setOrderComplete(false);
+    }, [])
+  );
+
+  useEffect(() => {
+    if (cartItems.length > 0 && orderComplete) {
+      setOrderComplete(false);
+    }
+  }, [cartItems.length, orderComplete]);
 
   const handleUpdateQuantity = (productId: string, quantity: number) => {
     dispatch(updateQuantity({ productId, quantity }));
@@ -30,6 +95,10 @@ export default function CartScreen() {
 
   const handleRemove = (productId: string) => {
     dispatch(removeFromCart(productId));
+  };
+
+  const handleViewProduct = (productId: string) => {
+    router.push({ pathname: "/product/[id]", params: { id: productId } });
   };
 
   const handlePlaceOrder = async () => {
@@ -42,8 +111,7 @@ export default function CartScreen() {
       }));
       await api.placeOrder(orderItems);
       dispatch(clearCart());
-      // TODO: extract route string
-      router.push("/order-success");
+      setOrderComplete(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : STRINGS.orderFailed);
     } finally {
@@ -51,33 +119,88 @@ export default function CartScreen() {
     }
   };
 
+  const isEmpty = cartItems.length === 0;
+
+  const renderCartItem: ListRenderItem<CartListItem> = ({ item }) => {
+    const { product, quantity, productId } = item;
+    return (
+      <CartItem
+        product={product}
+        quantity={quantity}
+        onUpdateQuantity={(qty) => handleUpdateQuantity(productId, qty)}
+        onRemove={() => handleRemove(productId)}
+        onPressProduct={() => handleViewProduct(productId)}
+      />
+    );
+  };
+
+  if (isEmpty && orderComplete) {
+    return (
+      <Confirmation
+        iconName="check-circle"
+        iconColor="green"
+        title={STRINGS.orderConfirmedTitle}
+        message={STRINGS.orderConfirmedMessage}
+      >
+        <Recommendations />
+      </Confirmation>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <Confirmation
+        iconName="shopping-cart"
+        title={STRINGS.cartEmpty}
+        message={STRINGS.cartEmptyDescription}
+      >
+        <Recommendations />
+      </Confirmation>
+    );
+  }
+
   return (
-    <FlatList
-      data={cartItems}
-      keyExtractor={({ productId }) => productId}
-      renderItem={({ item }) => {
-        const { product, quantity, productId } = item;
-        return (
-          <CartItem
-            product={product}
-            quantity={quantity}
-            onUpdateQuantity={(qty) => handleUpdateQuantity(productId, qty)}
-            onRemove={() => handleRemove(productId)}
-          />
-        );
-      }}
-      ListEmptyComponent={
-        <ListEmpty loading={false} message={STRINGS.cartEmpty} />
-      }
-      ListFooterComponent={
-        <CartFooter
-          total={cartTotal}
-          error={error}
-          loading={loading}
-          isEmpty={cartItems.length === 0}
-          onPlaceOrder={handlePlaceOrder}
-        />
-      }
-    />
+    <ScreenContainer>
+      <CartList
+        data={cartItems}
+        keyExtractor={({ productId }: CartListItem) => productId}
+        renderItem={renderCartItem}
+        ListFooterComponent={
+          <Footer>
+            <FooterRow>
+              <GridCell $width={CART_GRID.IMAGE} $marginRight={CART_GRID.GAP} />
+              <TotalLabel>{STRINGS.total}</TotalLabel>
+              <GridCell $width={CART_GRID.QTY} />
+              <GridCell $width={CART_GRID.PRICE} />
+              <GridCell $width={CART_GRID.TOTAL}>
+                <CurrencyDisplay value={cartTotal} />
+              </GridCell>
+              <GridCell $width={CART_GRID.REMOVE} />
+            </FooterRow>
+            {error ? <ErrorText>{error}</ErrorText> : null}
+          </Footer>
+        }
+      />
+      <ActionButton
+        onPress={handlePlaceOrder}
+        label={STRINGS.placeOrder}
+        iconName="check"
+        loading={loading}
+        backgroundColor="#22c55e"
+      />
+    </ScreenContainer>
   );
+}
+
+// TODO: find a better fix for this re-rendering issue
+export default function CartScreen() {
+  const [renderKey, setRenderKey] = useState(0);
+
+  useFocusEffect(
+    useCallback(() => {
+      setRenderKey((key) => key + 1);
+    }, [])
+  );
+
+  return <CartContent key={renderKey} />;
 }

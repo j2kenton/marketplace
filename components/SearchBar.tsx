@@ -8,13 +8,13 @@ import { FontSize } from "@/constants/Text";
 const Container = styled(View)`
   background-color: ${COLORS.background};
   border-radius: 12px;
-  padding: 0 16px;
+  padding: 0;
   margin: 12px 0;
 `;
 
 const Input = styled(TextInput)`
   font-size: ${FontSize.SIZE_16};
-  padding: 14px 0;
+  padding: 8px;
   color: ${COLORS.text};
 `;
 

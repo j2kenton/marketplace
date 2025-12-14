@@ -57,13 +57,15 @@ export default function ProductListScreen() {
   };
 
   const handleSortToggle = (sortKey: SortKey) => {
-    const [currentKey, currentDirection] = sortBy.split("_") as [
-      SortKey,
-      SortDirection
-    ];
+    const [currentKey, currentDirection] = sortBy
+      ? (sortBy.split("_") as [SortKey, SortDirection])
+      : [null, null];
+
     const nextDirection: SortDirection =
       currentKey === sortKey && currentDirection === "desc" ? "asc" : "desc";
-    dispatch(setSortBy(`${sortKey}_${nextDirection}` as SortOption));
+    const nextSort: SortOption = `${sortKey}_${nextDirection}`;
+
+    dispatch(setSortBy(nextSort));
   };
 
   const handleLoadMore = () => {

@@ -1,4 +1,4 @@
-import { Category, SortKey, SortOption } from "@/types";
+import { Category, SortKey, SortSelection } from "@/types";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import CategoryFilter from "./CategoryFilter";
@@ -15,7 +15,7 @@ interface ProductListHeaderProps {
   categories: Category[];
   selectedCategoryId: string | null;
   onCategorySelect: (categoryId: string | null) => void;
-  sortBy: SortOption;
+  sortBy: SortSelection;
   onSortToggle: (sortKey: SortKey) => void;
 }
 

@@ -42,25 +42,27 @@ export const api = {
     }
 
     // Sorting
-    const [sortKey, sortDirection] = filters.sortBy.split("_") as [
-      SortKey,
-      SortDirection
-    ];
+    if (filters.sortBy) {
+      const [sortKey, sortDirection] = filters.sortBy.split("_") as [
+        SortKey,
+        SortDirection
+      ];
 
-    const sortAccessors: Record<SortKey, (product: Product) => number> = {
-      price: (product) => product.price,
-      rating: (product) => product.rating,
-      reviews: (product) => product.reviewCount,
-    };
+      const sortAccessors: Record<SortKey, (product: Product) => number> = {
+        price: (product) => product.price,
+        rating: (product) => product.rating,
+        reviews: (product) => product.reviewCount,
+      };
 
-    const accessor = sortAccessors[sortKey];
-    if (accessor) {
-      filtered.sort((a, b) => {
-        const difference = accessor(a) - accessor(b);
-        return sortDirection === "asc" ? difference : -difference;
-      });
-    } else {
-      filtered.sort((a, b) => a.name.localeCompare(b.name));
+      const accessor = sortAccessors[sortKey];
+      if (accessor) {
+        filtered.sort((a, b) => {
+          const difference = accessor(a) - accessor(b);
+          return sortDirection === "asc" ? difference : -difference;
+        });
+      } else {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      }
     }
 
     // Pagination - slice the results

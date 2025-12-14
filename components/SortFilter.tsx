@@ -1,7 +1,7 @@
 import COLORS from "@/constants/Colors";
 import STRINGS from "@/constants/Strings";
 import { FontSize, FontWeight } from "@/constants/Text";
-import { SortDirection, SortKey, SortOption } from "@/types";
+import { SortDirection, SortKey, SortSelection } from "@/types";
 import { FontAwesome } from "@expo/vector-icons";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import styled from "styled-components/native";
@@ -51,17 +51,21 @@ const options: { key: SortKey; label: string }[] = [
 ];
 
 const parseSort = (
-  sortBy: SortOption
+  sortBy: SortSelection
 ): {
-  key: SortKey;
+  key: SortKey | null;
   direction: SortDirection;
 } => {
+  if (!sortBy) {
+    return { key: null, direction: "desc" };
+  }
+
   const [key, direction] = sortBy.split("_") as [SortKey, SortDirection];
   return { key, direction };
 };
 
 interface SortFilterProps {
-  sortBy: SortOption;
+  sortBy: SortSelection;
   onToggle: (key: SortKey) => void;
 }
 

@@ -23,9 +23,10 @@ export interface CartItem {
 export type SortDirection = "asc" | "desc";
 export type SortKey = "price" | "rating" | "reviews";
 export type SortOption = `${SortKey}_${SortDirection}`;
+export type SortSelection = SortOption | null;
 
 export interface ProductFilters {
   search: string;
   categoryId: string | null;
-  sortBy: SortOption;
+  sortBy: SortSelection;
 }

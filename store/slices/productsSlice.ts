@@ -1,4 +1,4 @@
-import { Product, ProductFilters, SortOption } from "@/types";
+import { Product, ProductFilters, SortSelection } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ProductsState {
@@ -21,7 +21,7 @@ const initialState: ProductsState = {
   filters: {
     search: "",
     categoryId: null,
-    sortBy: "rating_desc", // TODO: MOVE TO ENUM
+    sortBy: null,
   },
 };
 
@@ -66,7 +66,7 @@ const productsSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    setSortBy(state, action: PayloadAction<SortOption>) {
+    setSortBy(state, action: PayloadAction<SortSelection>) {
       state.filters.sortBy = action.payload;
       state.page = 1; // TODO: EXTRACT MAGIC NUMBER
       state.items = [];

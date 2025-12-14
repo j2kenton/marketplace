@@ -30,7 +30,7 @@ const StarRating = (props: StarRatingProps) => {
 
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
-      <Text>{ratingString}</Text>
+      <Text>{ratingString} </Text>
       <StarDisplay count={rating} max={MAX_RATING} />
       <Text> {reviewCountString}</Text>
     </View>

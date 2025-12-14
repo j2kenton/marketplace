@@ -11,7 +11,10 @@ export default function Root({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
 
         {/* 
           Disable body scrolling on web. This makes ScrollView components work closer to how they do on native. 
@@ -20,7 +23,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <ScrollViewStyleReset />
 
         {/* Using raw CSS styles as an escape-hatch to ensure the background color never flickers in dark-mode. */}
-        <style dangerouslySetInnerHTML={{ __html: responsiveBackground }} />
+        <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
         {/* Add any additional <head> elements that you want globally available on web... */}
       </head>
       <body>{children}</body>
@@ -28,10 +31,35 @@ export default function Root({ children }: { children: React.ReactNode }) {
   );
 }
 
-const responsiveBackground = `
+const paddingForLargerScreens = 24;
+
+const globalStyles = `
+html, body {
+  height: 100%;
+}
+
 body {
   background-color: ${COLORS.white};
+  display: flex;
+  justify-content: center;
 }
+
+#root {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: ${paddingForLargerScreens}px 0;
+  }
+  #root {
+    min-height: calc(100vh - ${paddingForLargerScreens * 2}px);
+    max-height: calc(100vh - ${paddingForLargerScreens * 2}px);
+    overflow: auto;
+    max-width: 480px;
+  }
+}
+  
 @media (prefers-color-scheme: dark) {
   body {
     background-color: ${COLORS.black};

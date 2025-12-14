@@ -10,19 +10,22 @@ const DEFAULT_STEP = 1;
 const Container = styled(View)`
   flex-direction: row;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 `;
 
 const StepButton = styled(Pressable)`
   background-color: ${COLORS.gray300};
   border-radius: 4px;
-  padding: 4px;
+  padding: 2px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const QuantityInput = styled(TextInput)`
   text-align: center;
   min-width: 24px;
-  padding: 2px;
+  padding: 2px 4px;
+  width: 36px;
 `;
 
 interface QuantitySelectorProps {

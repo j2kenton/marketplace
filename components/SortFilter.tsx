@@ -21,7 +21,8 @@ const ChipsRow = styled(ScrollView)`
 `;
 
 const Chip = styled(Pressable)<{ $active: boolean }>`
-  background-color: ${({ $active }) => ($active ? COLORS.tint : COLORS.gray200)};
+  background-color: ${({ $active }: { $active: boolean }) =>
+    $active ? COLORS.tint : COLORS.gray200};
   border-radius: 16px;
   padding: 8px 12px;
   margin-right: 8px;
@@ -31,23 +32,27 @@ const Chip = styled(Pressable)<{ $active: boolean }>`
 `;
 
 const ChipLabel = styled(Text)<{ $active: boolean }>`
-  color: ${({ $active }) => ($active ? COLORS.background : COLORS.text)};
+  color: ${({ $active }: { $active: boolean }) =>
+    $active ? COLORS.background : COLORS.text};
   font-size: ${FontSize.SIZE_14};
-  font-weight: ${({ $active }) =>
+  font-weight: ${({ $active }: { $active: boolean }) =>
     $active ? FontWeight.SEMI_BOLD : FontWeight.REGULAR};
 `;
 
 const SortIcon = styled(FontAwesome)<{ $active: boolean }>`
-  color: ${({ $active }) => ($active ? COLORS.background : COLORS.text)};
+  color: ${({ $active }: { $active: boolean }) =>
+    $active ? COLORS.background : COLORS.text};
 `;
 
 const options: { key: SortKey; label: string }[] = [
-  { key: "price", label: STRINGS.price },
   { key: "rating", label: STRINGS.rating },
+  { key: "price", label: STRINGS.price },
   { key: "reviews", label: STRINGS.reviews },
 ];
 
-const parseSort = (sortBy: SortOption): {
+const parseSort = (
+  sortBy: SortOption
+): {
   key: SortKey;
   direction: SortDirection;
 } => {

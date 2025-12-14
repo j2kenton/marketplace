@@ -156,7 +156,7 @@ function CartContent() {
         title={STRINGS.orderConfirmedTitle}
         message={STRINGS.orderConfirmedMessage}
       >
-        <Recommendations />
+        <Recommendations hasJustOrdered />
       </Confirmation>
     );
   }

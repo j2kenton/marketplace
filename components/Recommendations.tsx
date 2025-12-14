@@ -41,7 +41,11 @@ const CategoryLink = styled(Text)`
   margin-bottom: 8px;
 `;
 
-const Recommendations = () => {
+interface RecommendationsProps {
+  hasJustOrdered?: boolean;
+}
+
+const Recommendations = ({ hasJustOrdered = false }: RecommendationsProps) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const featuredProducts = getOneProductPerCategory();
@@ -59,7 +63,9 @@ const Recommendations = () => {
     <>
       <Divider />
       <Heading>
-        {STRINGS.recommendationsHeading} <Eye>{EYES}</Eye>
+        <span>{STRINGS.recommendationsHeadingPrefix} </span>
+        {hasJustOrdered ? <em>{STRINGS.recommendationsHeadingElse} </em> : null}
+        {STRINGS.recommendationsHeadingSuffix} <Eye>{EYES}</Eye>
       </Heading>
       <ProductList>
         {featuredProducts.map((product) => (
